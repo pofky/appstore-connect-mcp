@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import type { Tier } from "../types.js";
 
 const WHATS_NEW_MAX = 4000;
 
@@ -32,7 +33,14 @@ export async function releaseNotes(args: {
   project_path?: string;
   since_tag?: string;
   max_commits?: number;
-}): Promise<string> {
+}, tier: Tier): Promise<string> {
+  if (tier !== "pro") {
+    return (
+      "Release notes generation requires a Pro license ($9/mo).\n" +
+      "Get your license at: https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu\n\n" +
+      "Set ASC_LICENSE_KEY in your MCP server config to unlock."
+    );
+  }
   const cwd = args.project_path || process.cwd();
   const maxCommits = args.max_commits || 50;
 

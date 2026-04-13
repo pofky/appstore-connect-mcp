@@ -128,7 +128,7 @@ async function main() {
     "release_preflight",
     "Pre-submission audit: checks metadata, character limits, screenshots, build status. Catches rejection causes before you submit.",
     { app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID") },
-    safe((args) => releasePreflight(client, args)),
+    safe((args) => releasePreflight(client, args, tier)),
   );
 
   server.tool(
@@ -146,7 +146,7 @@ async function main() {
       since_tag: z.string().optional().describe("Git tag to diff from (default: latest tag)"),
       max_commits: z.number().optional().describe("Max commits to include (default 50)"),
     },
-    safe((args) => releaseNotes(args)),
+    safe((args) => releaseNotes(args, tier)),
   );
 
   const transport = new StdioServerTransport();
