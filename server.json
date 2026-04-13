@@ -1,0 +1,50 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pofky/appstore-connect-mcp",
+  "description": "Check app review status, read reviews, download sales reports from App Store Connect",
+  "repository": {
+    "url": "https://github.com/pofky/appstore-connect-mcp",
+    "source": "github"
+  },
+  "version": "0.2.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@pofky/appstore-connect-mcp",
+      "version": "0.2.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "App Store Connect API Key ID (10-char alphanumeric from ASC portal)",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": false,
+          "name": "ASC_KEY_ID"
+        },
+        {
+          "description": "App Store Connect Issuer ID (UUID from ASC portal)",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": false,
+          "name": "ASC_ISSUER_ID"
+        },
+        {
+          "description": "Path to .p8 private key file downloaded from App Store Connect",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": false,
+          "name": "ASC_PRIVATE_KEY_PATH"
+        },
+        {
+          "description": "Pro license key for reviews and sales tools (optional, get at buy.polar.sh)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "ASC_LICENSE_KEY"
+        }
+      ]
+    }
+  ]
+}

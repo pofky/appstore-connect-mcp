@@ -1,6 +1,6 @@
 {
   "name": "@pofky/appstore-connect-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for Apple App Store Connect API — check review status, read customer reviews, download sales reports from Claude Code, Cursor, Windsurf, or any AI coding agent. Free tier included.",
   "main": "dist/index.js",
   "bin": {
@@ -37,6 +37,7 @@
     "ai-coding",
     "developer-tools"
   ],
+  "mcpName": "io.github.pofky/appstore-connect-mcp",
   "author": "pofky",
   "license": "MIT",
   "dependencies": {
