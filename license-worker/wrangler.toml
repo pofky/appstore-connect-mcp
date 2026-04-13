@@ -5,4 +5,4 @@ compatibility_date = "2024-12-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "asc-mcp-licenses"
-database_id = "" # Set after `wrangler d1 create asc-mcp-licenses`
+database_id = "1ce876f0-17c7-43a1-9ea5-79a9746ec2e3"

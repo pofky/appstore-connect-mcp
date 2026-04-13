@@ -1,7 +1,7 @@
 import type { LicenseStatus, Tier } from "./types.js";
 
 const LICENSE_API_URL =
-  process.env.ASC_LICENSE_API_URL || "https://license.agentcost.dev";
+  process.env.ASC_LICENSE_API_URL || "https://asc-mcp-license.remewdy.workers.dev";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 let cachedStatus: LicenseStatus | null = null;
