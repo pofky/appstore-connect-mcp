@@ -61,7 +61,7 @@ That's it. Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and 
 | `app_details` | Full version history, build status, release state, dates |
 | `review_status` | Current review state: in review, waiting, approved, rejected - with human-readable context like "Your app is currently being reviewed. Typical time: 24-48 hours." |
 
-### Pro ($19/mo)
+### Pro ($9/mo)
 
 | Tool | What it does |
 |------|-------------|
