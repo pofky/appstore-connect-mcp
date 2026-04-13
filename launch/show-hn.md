@@ -1,24 +1,26 @@
-# Show HN: MCP server for App Store Connect – check review status from Claude Code
+# Show HN: I made an MCP server so I can check my App Store review status without leaving my editor
 
-I built an MCP server that lets you manage your iOS apps directly from AI coding agents (Claude Code, Cursor, Windsurf, Cline).
+I have two iOS apps and I was constantly switching to the App Store Connect website just to see if my build was still stuck in review. It got annoying enough that I built an MCP server to bring that info into my coding environment.
 
-Instead of switching to the App Store Connect portal to check if your build is in review or read user feedback, just ask your agent:
+Now I just ask "is my app in review?" and get the answer right there. No tab switching, no logging into ASC.
 
-- "Is my app in review?" → exact status with context
-- "Show me 1-star reviews" → filtered, sorted customer reviews
-- "What were my downloads this week?" → sales summary by territory
+It connects to Apple's App Store Connect API using your own API key (the .p8 file stays on your machine, tokens are generated locally).
 
-Free tier: list apps, app details, review status — works immediately with no account.
-Pro ($19/mo): customer reviews + sales reports.
+What it does:
+- List your apps
+- See version details and build status
+- Check review status — it tells you stuff like "your app is in the queue, hasn't been picked up yet" instead of just showing a status code
+- Read customer reviews (paid)
+- Pull sales/download numbers (paid)
 
-Your .p8 private key never leaves your machine. JWT tokens generated locally. Zero Apple data touches our servers.
+The first three are free. Reviews and sales are $19/mo because those hit Apple's API more heavily and I need to cover my costs.
 
-npm install -g @pofky/appstore-connect-mcp
+Works with Claude Code, Cursor, Windsurf, or anything that speaks MCP.
 
-Setup takes 3 minutes: create an API key in ASC, install, add to your Claude settings.
+Install: npm install -g @pofky/appstore-connect-mcp
 
-GitHub: https://github.com/pofky/appstore-connect-mcp
+Source: https://github.com/pofky/appstore-connect-mcp
 
-Other ASC MCP servers exist (STOMP has 162 tools, mcp-asc has 80+), but they're overwhelming. This one focuses on the 5 things you actually need daily as an indie iOS dev.
+There are a few other ASC MCP servers out there (STOMP, mcp-asc) but they try to wrap the entire API — 100+ tools. I just wanted the five things I actually check every day.
 
-Would love to know what tools to add next — TestFlight management and review responses are on the roadmap.
+Happy to hear what else would be useful. I'm thinking about adding TestFlight management next.

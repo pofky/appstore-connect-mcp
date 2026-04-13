@@ -4,3 +4,4 @@ dist/
 *.p8
 .env
 .wrangler/
+.mcpregistry_*

@@ -1,39 +1,24 @@
-# r/iOSProgramming post
+# r/iOSProgramming
 
-**Title:** I built a free MCP server for App Store Connect — check review status, read reviews from Claude Code / Cursor
+**Title:** Made a simple MCP server for App Store Connect — check review status from your editor
 
-**Body:**
+I manage two iOS apps and was getting annoyed by how often I'd switch to the ASC website just to check if my build was in review or to read a new review someone left.
 
-If you use AI coding agents (Claude Code, Cursor, Windsurf), you can now talk to App Store Connect without leaving your editor.
+So I built an MCP server that brings that into Claude Code / Cursor / Windsurf.
 
-**What it does:**
+You can ask things like:
+- "Is my app in review?" — gives you the status in plain language, not just a state code
+- "Show me my 1-star reviews" — filtered reviews right in your terminal
+- "What were my downloads this week?" — quick sales summary
 
-"Is my app in review?" → tells you the exact state with context ("Your app is in the review queue. Typical time: 24-48 hours.")
+Three tools are free (list apps, app details, review status). Reviews and sales reports are $19/mo since I need to keep the lights on.
 
-"Show me 1-star reviews from this week" → filtered customer reviews with ratings, text, territory
+Your API key stays on your machine — the server generates JWT tokens locally and talks to Apple directly. The only thing that hits my infrastructure is a license check.
 
-"What were my downloads yesterday?" → sales summary by app and territory
+Takes about 3 minutes to set up: create an API key in ASC, install via npm, add a few env vars.
 
-**Free tools (no account):**
-- List all your apps
-- App version history and build status
-- Review status with human-readable context
+`npm install -g @pofky/appstore-connect-mcp`
 
-**Pro tools ($19/mo):**
-- Customer reviews with filtering/sorting
-- Sales and download reports
+Source: https://github.com/pofky/appstore-connect-mcp
 
-**Setup takes 3 minutes:**
-1. Create an API key in App Store Connect
-2. `npm install -g @pofky/appstore-connect-mcp`
-3. Add 3 env vars to your Claude/Cursor settings
-4. Ask "list my apps"
-
-Your .p8 private key stays on your machine. JWT tokens generated locally. Zero Apple data touches any remote server. Fully open source.
-
-**GitHub:** https://github.com/pofky/appstore-connect-mcp
-**npm:** `npm install -g @pofky/appstore-connect-mcp`
-
-Other ASC MCP servers exist (STOMP has 162 tools, mcp-asc has 80+) but they're overwhelming if you just want the basics. This one focuses on the 5 things indie devs actually use.
-
-What would you want added next — TestFlight management or responding to reviews?
+There are bigger ASC MCP servers out there (STOMP has 162 tools) but I just wanted something simple that covers what I actually check daily. Open to suggestions on what to add next.

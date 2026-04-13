@@ -1,52 +1,30 @@
-# Twitter/X launch thread
+# Twitter/X thread
 
-## Tweet 1 (hook)
-I got tired of switching to App Store Connect to check review status while coding.
+## Tweet 1
+Got tired of switching to App Store Connect every time I wanted to check if my app was still in review.
 
-So I built an MCP server that lets Claude Code (or Cursor/Windsurf) talk to Apple's API:
+Built an MCP server so I can just ask from my editor: "is Remewdy in review?"
 
-"Is my app in review?"
-"Show me 1-star reviews"
-"What were my downloads?"
+Free, open source: github.com/pofky/appstore-connect-mcp
 
-Free and open source: github.com/pofky/appstore-connect-mcp
+## Tweet 2
+What it does:
 
-## Tweet 2 (what it does)
-5 tools. 3 free, 2 pro.
+- "list my apps" — shows your apps with bundle IDs
+- "is my app in review?" — tells you the status in plain English
+- "show me 1-star reviews" — customer feedback right in your terminal
+- "what were my downloads?" — sales numbers
 
-Free:
-- list_apps — all your apps + bundle IDs
-- app_details — versions, builds, release state
-- review_status — "Your app is in the review queue. Typical time: 24-48 hours."
+First 3 are free.
 
-Pro ($19/mo):
-- list_reviews — filter by stars, sort, territory
-- sales_report — downloads + revenue
+## Tweet 3
+Setup is like 3 minutes. Create an API key in App Store Connect, npm install, add to your claude/cursor config. That's it.
 
-## Tweet 3 (setup)
-Setup in 3 minutes:
-
-1. Create API key in App Store Connect
-2. npm install -g @pofky/appstore-connect-mcp
-3. Add 3 env vars to Claude settings
-4. "List my apps"
-
-Works with Claude Code, Cursor, Windsurf, Cline — any MCP client.
-
-## Tweet 4 (security)
-Your .p8 key never leaves your machine.
-
-JWT tokens generated locally. API calls go directly from your computer to Apple. Our license server only sees a license key string.
-
-Fully open source — read every line.
-
-## Tweet 5 (CTA)
-If you ship iOS apps and use AI coding agents:
+Your .p8 key stays on your machine. Nothing goes through my servers except a license check.
 
 npm install -g @pofky/appstore-connect-mcp
 
-Free tier works immediately. No account needed.
+## Tweet 4
+I know there are other ASC MCP servers (STOMP has 162 tools). I just wanted the five things I actually check as an indie dev. Not trying to wrap the entire Apple API.
 
-github.com/pofky/appstore-connect-mcp
-
-What tool should I add next — TestFlight management or review responses?
+What would you add? Thinking TestFlight next.
