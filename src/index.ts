@@ -47,15 +47,15 @@ async function main() {
   const tier: Tier = await validateLicense(config.licenseKey);
 
   if (tier === "pro") {
-    console.error("appstore-connect-mcp: Pro license active. All tools available.");
+    console.error("asc-mcp: Pro license active. All tools available.");
   } else {
     console.error(
-      "appstore-connect-mcp: Free tier (3 tools). Upgrade at https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu",
+      "asc-mcp: Free tier (3 tools). Upgrade at https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu",
     );
   }
 
   const server = new McpServer({
-    name: "appstore-connect-mcp",
+    name: "asc-mcp",
     version: "0.1.0",
   });
 

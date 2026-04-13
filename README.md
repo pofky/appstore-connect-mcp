@@ -3,7 +3,7 @@
 > **Not another API wrapper.** This MCP server catches rejections before you submit, gives you a morning briefing across all your apps, and writes your release notes from git history. The 5 free tools cover basics. The 3 Pro tools are things no other ASC server does.
 
 ```bash
-npm install -g @pofky/appstore-connect-mcp
+npm install -g @pofky/asc-mcp
 ```
 
 ## What Makes This Different
@@ -29,7 +29,7 @@ No context switching. No portal. Just ask.
 **Step 2.** Install:
 
 ```bash
-npm install -g @pofky/appstore-connect-mcp
+npm install -g @pofky/asc-mcp
 ```
 
 Add to `~/.claude/settings.json` (Claude Code) or your agent's MCP config:
@@ -38,7 +38,7 @@ Add to `~/.claude/settings.json` (Claude Code) or your agent's MCP config:
 {
   "mcpServers": {
     "appstore-connect": {
-      "command": "appstore-connect-mcp",
+      "command": "asc-mcp",
       "env": {
         "ASC_KEY_ID": "YOUR_KEY_ID",
         "ASC_ISSUER_ID": "YOUR_ISSUER_ID",
