@@ -40,7 +40,6 @@ export async function reviewStatus(
       "fields[appStoreVersions]":
         "versionString,platform,appStoreState,createdDate",
       limit: "5",
-      sort: "-createdDate",
     },
   );
 

@@ -56,7 +56,6 @@ export async function appDetails(
       "fields[appStoreVersions]":
         "versionString,platform,appStoreState,createdDate,releaseType,earliestReleaseDate",
       limit: "5",
-      sort: "-createdDate",
     },
   );
 
