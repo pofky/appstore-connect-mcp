@@ -55,10 +55,10 @@
     <div class="max-w-3xl mx-auto px-6 py-24 md:py-32">
       <p class="font-mono text-sm text-warm-400 mb-6 tracking-wide">npm install -g @pofky/appstore-connect-mcp</p>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-warm-50">
-        App Store Connect<br>in your terminal.
+        Catch rejections<br>before you submit.
       </h1>
       <p class="text-lg md:text-xl text-warm-200 max-w-xl mb-10 leading-relaxed">
-        Ask your AI agent "is my app in review?" and get an answer. No browser tabs, no portal clicking. Works with Claude Code, Cursor, Windsurf, and any MCP client.
+        An MCP server that audits your app before submission, gives you a morning briefing across all your apps, and writes release notes from your git history. Not another raw API wrapper.
       </p>
       <div class="flex flex-col sm:flex-row gap-4">
         <a href="#setup" class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-ink">
@@ -76,16 +76,16 @@
     <!-- Problem -->
     <section class="bg-warm-50 text-warm-800 py-20 md:py-28">
       <div class="max-w-2xl mx-auto px-6">
-        <h2 class="text-2xl md:text-3xl font-bold text-ink mb-8">You already live in the terminal.</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-ink mb-8">40% of App Store rejections are preventable.</h2>
         <div class="space-y-5 text-lg leading-relaxed">
           <p>
-            You're deep in code. You need to know if your build passed review, or what that 1-star review says, or how many downloads you got this week.
+            Missing metadata, empty "What's New" text, wrong screenshot sizes, no build attached. These are the top causes of Guideline 2.1 rejections, and they all have one thing in common: a preflight check would have caught them.
           </p>
           <p>
-            So you open App Store Connect. Log in. Navigate to the right app. Click through three screens. Copy the info. Switch back to your editor.
+            Other MCP servers give you 80-293 raw API endpoints. This one gives you a pre-submission audit that checks everything in one call. Plus a daily briefing, review summaries, and release notes generated from your actual git commits.
           </p>
           <p>
-            This MCP server removes all of that. Type a question in your AI agent, get the answer in the same window where you write code.
+            Raw endpoints are free everywhere. Intelligence is the part worth paying for.
           </p>
         </div>
       </div>
@@ -94,59 +94,78 @@
     <!-- How it works (real examples) -->
     <section class="py-20 md:py-28">
       <div class="max-w-4xl mx-auto px-6">
-        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-4">Ask in English. Get real data.</h2>
-        <p class="text-warm-400 mb-14 max-w-xl">Your AI agent calls the App Store Connect API on your behalf. Here's what that looks like.</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-4">Intelligence, not just endpoints.</h2>
+        <p class="text-warm-400 mb-14 max-w-xl">These are the tools that raw API wrappers can't replicate. Each one composes multiple data sources and applies real validation logic.</p>
 
         <div class="space-y-12">
-          <!-- Example 1 -->
+          <!-- Example 1: Preflight (the moat) -->
           <div>
-            <p class="font-mono text-sm text-accent mb-3">"List my apps"</p>
+            <p class="font-mono text-sm text-accent mb-3">"Run a preflight check before I submit"</p>
             <div class="bg-[#12121a] rounded-lg p-5 md:p-6 font-mono text-sm leading-relaxed code-block overflow-x-auto border border-white/5">
-              <pre class="text-warm-200">Found 3 app(s):
+              <pre class="text-warm-200">Release Preflight: v2.3
 
-- Tempo: Habit Builder (com.example.tempo)
-  ID: 6834291057
+State: PREPARE_FOR_SUBMISSION
+Platform: IOS
 
-- FocusFlow (com.example.focusflow)
-  ID: 6812045893
+<span class="text-yellow-400">PASS (with 1 warning)</span>
 
-- NightOwl Weather (com.example.nightowl)
-  ID: 6798320417</pre>
+Warnings (recommended):
+- Missing screenshot set for APP_IPHONE_67.
+
+<span class="text-green-400">Passing checks: 4</span>
+- [en-US] Description OK (3874/4000 chars).
+- [en-US] Keywords OK (96/100 chars).
+- 2 screenshot set(s) found across 1 locale(s).
+- Build 40 attached and valid.
+
+Total: 4 pass, 1 warn, 0 fail</pre>
             </div>
           </div>
 
-          <!-- Example 2 -->
+          <!-- Example 2: Daily briefing -->
           <div>
-            <p class="font-mono text-sm text-accent mb-3">"Is my app in review?"</p>
+            <p class="font-mono text-sm text-accent mb-3">"Morning briefing"</p>
             <div class="bg-[#12121a] rounded-lg p-5 md:p-6 font-mono text-sm leading-relaxed code-block overflow-x-auto border border-white/5">
-              <pre class="text-warm-200">Review Status for App 6834291057
+              <pre class="text-warm-200">Daily Briefing - 2026-04-13
 
-Latest version: v2.3 (IOS)
-State: <span class="text-yellow-400">Waiting for Review</span>
-Created: 2026-04-08
+3 apps in your account
 
-Your app is in the review queue.
-It has not been picked up by a reviewer yet.</pre>
+<span class="text-warm-50">Tempo: Habit Builder</span>
+- Latest: v2.3 (IOS) - <span class="text-yellow-400">Waiting for Review</span>
+- Reviews (last 3d): 5 new, avg 4.2 stars
+
+<span class="text-warm-50">FocusFlow</span>
+- Latest: v1.8 (IOS) - <span class="text-green-400">Live</span>
+- <span class="text-red-400">Attention</span>: 2 reviews with 1-2 stars
+  - ★☆☆☆☆ "Notifications stopped" (US)
+  - ★★☆☆☆ "Missing dark mode" (DE)
+
+<span class="text-warm-50">NightOwl Weather</span>
+- Latest: v1.0 (IOS) - <span class="text-red-400">REJECTED</span>
+- check App Store Connect for details</pre>
             </div>
           </div>
 
-          <!-- Example 3 -->
+          <!-- Example 3: Release notes -->
           <div>
-            <p class="font-mono text-sm text-accent mb-3">"Show me 1-star reviews"</p>
+            <p class="font-mono text-sm text-accent mb-3">"Generate release notes from git"</p>
             <div class="bg-[#12121a] rounded-lg p-5 md:p-6 font-mono text-sm leading-relaxed code-block overflow-x-auto border border-white/5">
-              <pre class="text-warm-200">Customer Reviews for App 6834291057 (3 shown)
+              <pre class="text-warm-200">Git History for Release Notes
 
-<span class="text-red-400">★☆☆☆☆</span> Notifications stopped working
-By happyUser42 - US - 2026-04-10
-"Since the last update, I don't get reminders anymore..."
+Since: v2.2.0
+Commits: 8
 
-<span class="text-red-400">★☆☆☆☆</span> Crashes on iPad
-By tabletFan - GB - 2026-04-09
-"Opens fine on my iPhone but crashes on iPad Air..."
+<span class="text-warm-50">New Features (3)</span>
+- feat: add habit streak calendar view
+- feat: dark mode support
+- add widget for home screen
 
-<span class="text-yellow-400">★★☆☆☆</span> Missing dark mode
-By darkside99 - DE - 2026-04-07
-"Great concept but using it at night burns my eyes..."</pre>
+<span class="text-warm-50">Bug Fixes (2)</span>
+- fix: notification timing off by 1 hour
+- fix: crash on iPad when rotating
+
+<span class="text-warm-400">Character limit: 4000 chars for "What's New"
+Lead with the most impactful change.</span></pre>
             </div>
           </div>
         </div>
@@ -156,32 +175,50 @@ By darkside99 - DE - 2026-04-07
     <!-- Features -->
     <section class="bg-[#12121a] py-20 md:py-28">
       <div class="max-w-4xl mx-auto px-6">
-        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-14">Five tools. Each one does its job.</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-4">8 tools. 3 free, 5 Pro.</h2>
+        <p class="text-warm-400 mb-14">The free tools cover basics. The Pro tools do things no other ASC server can.</p>
 
-        <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+        <p class="text-xs font-mono text-warm-600 uppercase tracking-wider mb-6">Free</p>
+        <div class="grid md:grid-cols-3 gap-x-8 gap-y-8 mb-14">
           <article>
             <h3 class="text-lg font-semibold text-warm-50 mb-2">list_apps</h3>
-            <p class="text-warm-400 leading-relaxed">Returns every app in your App Store Connect account: name, bundle ID, SKU, platform. The starting point for everything else.</p>
+            <p class="text-warm-400 leading-relaxed text-sm">All your apps: name, bundle ID, SKU, platform.</p>
           </article>
-
           <article>
             <h3 class="text-lg font-semibold text-warm-50 mb-2">app_details</h3>
-            <p class="text-warm-400 leading-relaxed">Full version history for an app: build status, release state, creation dates. See exactly which version is live, which is pending.</p>
+            <p class="text-warm-400 leading-relaxed text-sm">Version history, build status, release state.</p>
           </article>
-
           <article>
             <h3 class="text-lg font-semibold text-warm-50 mb-2">review_status</h3>
-            <p class="text-warm-400 leading-relaxed">Is your app in review, waiting, approved, or rejected? Get the state plus human-readable context like "typical review time: 24-48 hours."</p>
+            <p class="text-warm-400 leading-relaxed text-sm">In review, waiting, approved, rejected - with context.</p>
+          </article>
+        </div>
+
+        <p class="text-xs font-mono text-accent uppercase tracking-wider mb-6">Pro - $9/mo</p>
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+          <article class="border border-accent/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">release_preflight</h3>
+            <p class="text-warm-400 leading-relaxed">Pre-submission audit. Checks metadata completeness, character limits, screenshot coverage, and build status across all locales. Catches the issues that cause 40%+ of rejections.</p>
+          </article>
+
+          <article class="border border-accent/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">daily_briefing</h3>
+            <p class="text-warm-400 leading-relaxed">Morning summary across all your apps. Version status, new reviews with sentiment, rejections, action items. One call replaces 10 minutes of portal clicking.</p>
+          </article>
+
+          <article class="border border-accent/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">release_notes</h3>
+            <p class="text-warm-400 leading-relaxed">Reads git commits since your last tag, categorizes them (features, fixes, improvements), and gives structured data for writing "What's New" text. Apple's 4,000-char limit validated.</p>
           </article>
 
           <article>
-            <h3 class="text-lg font-semibold text-warm-50 mb-2">list_reviews <span class="text-xs font-mono text-accent ml-2">PRO</span></h3>
-            <p class="text-warm-400 leading-relaxed">Customer reviews filtered by star rating (1-5), sorted by newest, oldest, or rating. Filter by territory. See what users are actually saying.</p>
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">list_reviews</h3>
+            <p class="text-warm-400 leading-relaxed">Customer reviews filtered by star rating (1-5), territory, and sort order.</p>
           </article>
 
           <article>
-            <h3 class="text-lg font-semibold text-warm-50 mb-2">sales_report <span class="text-xs font-mono text-accent ml-2">PRO</span></h3>
-            <p class="text-warm-400 leading-relaxed">Daily, weekly, or monthly download counts and revenue, broken down by territory and app. Know your numbers without opening a spreadsheet.</p>
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">sales_report</h3>
+            <p class="text-warm-400 leading-relaxed">Download counts and revenue by territory, daily/weekly/monthly.</p>
           </article>
         </div>
       </div>
@@ -190,43 +227,48 @@ By darkside99 - DE - 2026-04-07
     <!-- Comparison -->
     <section class="py-20 md:py-28">
       <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-6">Other MCP servers exist. Most do too much.</h2>
-        <p class="text-warm-400 mb-10 max-w-xl">Servers with 80 or 162 tools overwhelm AI agents with options. LLMs perform better when they have fewer, well-defined tools to choose from.</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-6">Raw wrappers are free. Intelligence costs less than a lunch.</h2>
+        <p class="text-warm-400 mb-10 max-w-xl">Other servers give you 200+ raw API endpoints. They don't audit your metadata, summarize your morning, or generate your release notes. That's what you're paying $9 for.</p>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
             <thead>
               <tr class="border-b border-white/10">
-                <th class="py-3 pr-6 text-warm-400 font-medium">Server</th>
-                <th class="py-3 pr-6 text-warm-400 font-medium">Tools</th>
-                <th class="py-3 pr-6 text-warm-400 font-medium">Status</th>
-                <th class="py-3 text-warm-400 font-medium">Free tier</th>
+                <th class="py-3 pr-6 text-warm-400 font-medium"></th>
+                <th class="py-3 pr-6 text-warm-400 font-medium">Free wrappers</th>
+                <th class="py-3 pr-6 text-accent font-medium">This server</th>
               </tr>
             </thead>
             <tbody class="text-warm-200">
               <tr class="border-b border-white/5">
-                <td class="py-3 pr-6">JoshuaRileyDev</td>
-                <td class="py-3 pr-6 font-mono">~25</td>
-                <td class="py-3 pr-6 text-warm-600">Archived</td>
-                <td class="py-3">N/A</td>
+                <td class="py-3 pr-6 text-warm-400">Raw API endpoints</td>
+                <td class="py-3 pr-6">80-293</td>
+                <td class="py-3 pr-6">8 (focused)</td>
               </tr>
               <tr class="border-b border-white/5">
-                <td class="py-3 pr-6">STOMP</td>
-                <td class="py-3 pr-6 font-mono">162</td>
-                <td class="py-3 pr-6">Active</td>
-                <td class="py-3">No</td>
+                <td class="py-3 pr-6 text-warm-400">Pre-submission audit</td>
+                <td class="py-3 pr-6 text-warm-600">No</td>
+                <td class="py-3 pr-6 text-green-400">Yes</td>
               </tr>
               <tr class="border-b border-white/5">
-                <td class="py-3 pr-6">mcp-asc</td>
-                <td class="py-3 pr-6 font-mono">80+</td>
-                <td class="py-3 pr-6">Active</td>
-                <td class="py-3">No</td>
+                <td class="py-3 pr-6 text-warm-400">Cross-app briefings</td>
+                <td class="py-3 pr-6 text-warm-600">No</td>
+                <td class="py-3 pr-6 text-green-400">Yes</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-6 text-warm-400">Git-aware release notes</td>
+                <td class="py-3 pr-6 text-warm-600">No</td>
+                <td class="py-3 pr-6 text-green-400">Yes</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-6 text-warm-400">Setup</td>
+                <td class="py-3 pr-6">Build from source (Swift/macOS)</td>
+                <td class="py-3 pr-6">npm install (any OS)</td>
               </tr>
               <tr class="border-b border-white/10">
-                <td class="py-3 pr-6 font-semibold text-white">This one</td>
-                <td class="py-3 pr-6 font-mono text-accent font-semibold">5</td>
-                <td class="py-3 pr-6 text-green-400">Active</td>
-                <td class="py-3 text-green-400">Yes</td>
+                <td class="py-3 pr-6 text-warm-400">Free tier</td>
+                <td class="py-3 pr-6 text-warm-600">Varies</td>
+                <td class="py-3 pr-6 text-green-400">Yes, 3 tools</td>
               </tr>
             </tbody>
           </table>
@@ -334,7 +376,7 @@ By darkside99 - DE - 2026-04-07
           <!-- Pro -->
           <div class="border-2 border-accent rounded-xl p-8 relative">
             <h3 class="text-xl font-bold text-warm-50 mb-1">Pro</h3>
-            <p class="text-warm-400 text-sm mb-6">Customer reviews + sales data</p>
+            <p class="text-warm-400 text-sm mb-6">Intelligence tools + reviews + sales</p>
             <p class="text-3xl font-bold text-warm-50 mb-8">$9<span class="text-base font-normal text-warm-400">/mo</span></p>
             <ul class="space-y-3 text-warm-200 text-sm mb-8">
               <li class="flex gap-2">
@@ -342,16 +384,28 @@ By darkside99 - DE - 2026-04-07
                 <span>Everything in Free</span>
               </li>
               <li class="flex gap-2">
-                <span class="text-green-400 shrink-0">&#10003;</span>
-                <span>list_reviews (filter by rating, territory, sort)</span>
+                <span class="text-accent shrink-0">&#9733;</span>
+                <span>release_preflight (pre-submission audit)</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent shrink-0">&#9733;</span>
+                <span>daily_briefing (all apps, one call)</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent shrink-0">&#9733;</span>
+                <span>release_notes (from your git history)</span>
               </li>
               <li class="flex gap-2">
                 <span class="text-green-400 shrink-0">&#10003;</span>
-                <span>sales_report (daily/weekly/monthly by territory)</span>
+                <span>list_reviews (filter by rating, territory)</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-green-400 shrink-0">&#10003;</span>
+                <span>sales_report (downloads + revenue)</span>
               </li>
               <li class="flex gap-2 text-warm-400">
                 <span class="shrink-0">&#8594;</span>
-                <span>Coming: respond to reviews, TestFlight management, financial reports</span>
+                <span>Coming: review responses, keyword insights, competitor snapshots</span>
               </li>
             </ul>
             <a href="https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu" class="block w-full text-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#12121a]">
@@ -383,8 +437,8 @@ By darkside99 - DE - 2026-04-07
     <!-- Final CTA -->
     <section class="py-20 md:py-28">
       <div class="max-w-2xl mx-auto px-6 text-center">
-        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-6">Stop switching tabs.</h2>
-        <p class="text-warm-200 text-lg mb-10 max-w-lg mx-auto">Install in one command. Free tier covers review status, app listing, and version details. Upgrade when you need reviews and sales data.</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-6">Ship with confidence.</h2>
+        <p class="text-warm-200 text-lg mb-10 max-w-lg mx-auto">Free tier covers the basics. Pro adds the intelligence: preflight audits, morning briefings, and git-powered release notes. $9/mo.</p>
         <div class="bg-[#12121a] rounded-lg p-4 font-mono text-sm text-warm-200 mb-8 inline-block border border-white/5">
           npm install -g @pofky/appstore-connect-mcp
         </div>
