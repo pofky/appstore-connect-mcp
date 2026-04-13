@@ -12,6 +12,9 @@ import { appDetails } from "./tools/app-details.js";
 import { reviewStatus } from "./tools/review-status.js";
 import { listReviews } from "./tools/list-reviews.js";
 import { salesReport } from "./tools/sales-report.js";
+import { releasePreflight } from "./tools/release-preflight.js";
+import { dailyBriefing } from "./tools/daily-briefing.js";
+import { releaseNotes } from "./tools/release-notes.js";
 
 function getConfig(): ASCConfig {
   const keyId = process.env.ASC_KEY_ID;
@@ -117,6 +120,33 @@ async function main() {
         .describe("Date in YYYY-MM-DD (daily) or YYYY-MM (monthly). Default: yesterday."),
     },
     safe((args) => salesReport(client, args, tier)),
+  );
+
+  // --- Intelligence tools (Pro) ---
+
+  server.tool(
+    "release_preflight",
+    "Pre-submission audit: checks metadata, character limits, screenshots, build status. Catches rejection causes before you submit.",
+    { app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID") },
+    safe((args) => releasePreflight(client, args)),
+  );
+
+  server.tool(
+    "daily_briefing",
+    "Morning briefing across all apps: version status, recent reviews, rejections, action items. One call for full situational awareness.",
+    { days: z.number().optional().describe("Look back N days for reviews (default 3)") },
+    safe((args) => dailyBriefing(client, args, tier)),
+  );
+
+  server.tool(
+    "release_notes",
+    "Extract git commits since last tag and return structured data for writing App Store 'What's New' text. Categorizes changes and provides writing guidelines.",
+    {
+      project_path: z.string().optional().describe("Path to git project (default: current directory)"),
+      since_tag: z.string().optional().describe("Git tag to diff from (default: latest tag)"),
+      max_commits: z.number().optional().describe("Max commits to include (default 50)"),
+    },
+    safe((args) => releaseNotes(args)),
   );
 
   const transport = new StdioServerTransport();
