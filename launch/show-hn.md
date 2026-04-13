@@ -1,18 +1,24 @@
-# Show HN: MCP server for App Store Connect – manage iOS apps from Claude Code
+# Show HN: MCP server for App Store Connect – check review status from Claude Code
 
-I built an MCP server that connects Claude Code (or any MCP-compatible AI agent) to Apple's App Store Connect API.
+I built an MCP server that lets you manage your iOS apps directly from AI coding agents (Claude Code, Cursor, Windsurf, Cline).
 
-Free tier gives you: list apps, check version details, see review status.
-Pro tier ($19/mo): read customer reviews with filtering, download sales reports.
+Instead of switching to the App Store Connect portal to check if your build is in review or read user feedback, just ask your agent:
 
-Your .p8 private key never leaves your machine — JWT tokens are generated locally.
+- "Is my app in review?" → exact status with context
+- "Show me 1-star reviews" → filtered, sorted customer reviews
+- "What were my downloads this week?" → sales summary by territory
 
-Setup takes about 3 minutes: create an API key in ASC, npm install, add to your Claude settings.
+Free tier: list apps, app details, review status — works immediately with no account.
+Pro ($19/mo): customer reviews + sales reports.
+
+Your .p8 private key never leaves your machine. JWT tokens generated locally. Zero Apple data touches our servers.
+
+npm install -g @pofky/appstore-connect-mcp
+
+Setup takes 3 minutes: create an API key in ASC, install, add to your Claude settings.
 
 GitHub: https://github.com/pofky/appstore-connect-mcp
 
-Built this because I manage two iOS apps (Remewdy and GeoWrecked) and got tired of context-switching to the ASC portal every time I wanted to check review status or read user feedback during a coding session.
+Other ASC MCP servers exist (STOMP has 162 tools, mcp-asc has 80+), but they're overwhelming. This one focuses on the 5 things you actually need daily as an indie iOS dev.
 
-There are a few other ASC MCP servers (STOMP has 162 tools, mcp-asc has 80+), but they're kitchen-sink approaches. This one intentionally focuses on the 5 things indie devs actually use daily.
-
-Would love feedback on which tools to add next — TestFlight management and metadata updates are on the roadmap.
+Would love to know what tools to add next — TestFlight management and review responses are on the roadmap.

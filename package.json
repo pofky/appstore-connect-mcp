@@ -1,7 +1,7 @@
 {
   "name": "@pofky/appstore-connect-mcp",
-  "version": "0.1.3",
-  "description": "MCP server for Apple App Store Connect — manage iOS apps from your AI agent",
+  "version": "0.2.0",
+  "description": "MCP server for Apple App Store Connect API — check review status, read customer reviews, download sales reports from Claude Code, Cursor, Windsurf, or any AI coding agent. Free tier included.",
   "main": "dist/index.js",
   "bin": {
     "appstore-connect-mcp": "dist/index.js"
@@ -15,12 +15,27 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
+    "model-context-protocol",
     "app-store-connect",
+    "app-store-connect-api",
     "apple",
     "ios",
-    "model-context-protocol",
+    "macos",
+    "xcode",
+    "appstore",
+    "app-review",
+    "app-review-status",
+    "sales-report",
+    "customer-reviews",
+    "testflight",
     "claude",
-    "ai-agent"
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "ai-agent",
+    "ai-coding",
+    "developer-tools"
   ],
   "author": "pofky",
   "license": "MIT",

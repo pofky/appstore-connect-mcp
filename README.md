@@ -1,16 +1,36 @@
-# appstore-connect-mcp
+# App Store Connect MCP Server
 
-MCP server for Apple App Store Connect. Manage your iOS and macOS apps directly from Claude Code, Cursor, or any MCP-compatible AI agent.
-
-**Check review status. Read customer reviews. Download sales reports. All from your AI agent.**
-
-## Quick Start
+> **The missing MCP server for iOS developers.** Check app review status, read customer reviews, and download sales reports — directly from Claude Code, Cursor, Windsurf, or any MCP-compatible AI agent. No more switching to the App Store Connect portal.
 
 ```bash
 npm install -g @pofky/appstore-connect-mcp
 ```
 
-Add to your Claude Code MCP config (`~/.claude/settings.json`):
+## What Can It Do?
+
+Ask your AI agent in plain English:
+
+| You say | What happens |
+|---------|-------------|
+| "List my apps" | Shows all your iOS/macOS apps with bundle IDs |
+| "Is my app in review?" | Tells you the exact review state with context |
+| "What version is live?" | Shows version history with release dates |
+| "Show me 1-star reviews" | Lists customer reviews filtered by rating |
+| "What were my downloads this week?" | Sales and revenue summary by territory |
+
+No context switching. No portal. Just ask.
+
+## Setup (3 minutes)
+
+**Step 1.** Create an API key in [App Store Connect > Keys](https://appstoreconnect.apple.com/access/integrations/api) (Admin or App Manager role). Download the `.p8` file.
+
+**Step 2.** Install and configure:
+
+```bash
+npm install -g @pofky/appstore-connect-mcp
+```
+
+Add to `~/.claude/settings.json` (Claude Code) or your agent's MCP config:
 
 ```json
 {
@@ -27,94 +47,95 @@ Add to your Claude Code MCP config (`~/.claude/settings.json`):
 }
 ```
 
-Then ask Claude:
+**Step 3.** Ask your agent: "List my App Store Connect apps"
 
-> "Is my app in review?"
-> "Show me the latest 1-star reviews"
-> "What were my downloads last week?"
-
-## Setup (3 minutes)
-
-1. Go to [App Store Connect > Keys](https://appstoreconnect.apple.com/access/integrations/api)
-2. Click **Generate API Key** (requires Admin or App Manager role)
-3. Download the `.p8` file and save it somewhere safe (e.g. `~/.appstore/`)
-4. Copy your **Key ID** and **Issuer ID** from the same page
-5. Configure the MCP server with those values (see Quick Start above)
+That's it. Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and any MCP-compatible client.
 
 ## Tools
 
-### Free
+### Free (no account needed)
 
-| Tool | Description |
+| Tool | What it does |
 |------|-------------|
-| `list_apps` | List all apps with name, bundle ID, platform |
-| `app_details` | Version history, build status, release state |
-| `review_status` | Current App Store review status with context |
+| `list_apps` | List all your apps — name, bundle ID, SKU, platform |
+| `app_details` | Full version history, build status, release state, dates |
+| `review_status` | Current review state: in review, waiting, approved, rejected — with human-readable context like "Your app is currently being reviewed. Typical time: 24-48 hours." |
 
 ### Pro ($19/mo)
 
-| Tool | Description |
+| Tool | What it does |
 |------|-------------|
-| `list_reviews` | Customer reviews with filtering and sorting |
-| `sales_report` | Download/sales/revenue summary reports |
+| `list_reviews` | Customer reviews with star rating filter (1-5), sort by newest/oldest/rating, territory filter |
+| `sales_report` | Daily/weekly/monthly download counts, revenue, proceeds by territory and app |
 
-Get a Pro license at [buy.polar.sh](https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu), then add `ASC_LICENSE_KEY` to your env.
+**Coming soon:** respond to reviews, update metadata, manage TestFlight, financial reports.
 
-## Examples
+[Get Pro](https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu) | [Retrieve your license key](https://asc-mcp-license.remewdy.workers.dev/key)
 
-**List your apps:**
+## Real Output Examples
+
+**"List my apps"**
 ```
-> List my App Store Connect apps
-
 Found 2 app(s):
 
-- **Remewdy** (com.remewdy.app) — ID: 6504493441
-- **GeoWrecked** (app.geowrecked.ios) — ID: 6478291556
+- Remewdy: Pet Med Tracker (com.remewdy.app) — ID: 6761487030
+- GeoWrecked - World Trivia (app.geowrecked.ios) — ID: 6759347056
 ```
 
-**Check review status:**
+**"Is Remewdy in review?"**
 ```
-> Is Remewdy in review?
+Review Status for App 6761487030
 
-## Review Status for App 6504493441
+Latest version: v1.0 (IOS)
+State: Waiting for Review
+Created: 2026-04-01
 
-**Latest version**: v2.1.0 (IOS)
-**State**: Ready for Sale
-**Created**: 2026-04-10
-
-Your latest version is live on the App Store. No pending reviews.
+Your app is in the review queue. It has not been picked up by a reviewer yet.
 ```
 
-**Read customer reviews (Pro):**
+**"Show me recent 1-star reviews for my app"**
 ```
-> Show me recent 1-star reviews for GeoWrecked
+Customer Reviews (3 shown)
 
-## Customer Reviews (3 shown)
-
-### ★☆☆☆☆ App crashes on launch
-**By** user123 — US — 2026-04-12
+★☆☆☆☆ App crashes on launch
+By user123 — US — 2026-04-12
 The app crashes immediately after the splash screen...
 ```
 
 ## Why This One?
 
-Other ASC MCP servers exist but have gaps:
-- **JoshuaRileyDev** (316 stars) — archived, no longer maintained
-- **STOMP** (162 tools) — kitchen-sink approach, complex setup
-- **mcp-asc** — active but no freemium tier
+Other App Store Connect MCP servers exist. Here's how this compares:
 
-This server is focused on the 5 things indie iOS devs actually need, with a free tier that works immediately and a Pro tier for power users.
+| Server | Tools | Status | Free tier | Focused |
+|--------|-------|--------|-----------|---------|
+| JoshuaRileyDev | ~25 | Archived (Feb 2026) | N/A | No |
+| STOMP | 162 | Active | No | No |
+| mcp-asc | 80+ | Active | No | No |
+| **This one** | **5** | **Active** | **Yes** | **Yes** |
+
+This server does 5 things well instead of 162 things poorly. Free tier works immediately — install and go. Pro unlocks reviews and sales when you need them.
 
 ## Security
 
-- Your `.p8` private key **never leaves your machine**. JWT tokens are generated locally.
-- The license server only sees your license key string — zero Apple data.
-- No credentials are stored on any remote server.
+Your credentials never leave your machine:
+
+- The `.p8` private key is read locally. JWT tokens are generated on your computer.
+- API calls go directly from your machine to `api.appstoreconnect.apple.com`.
+- Our license server sees only your license key string — zero Apple data, zero credentials.
+- Fully open source. [Read the code.](https://github.com/pofky/appstore-connect-mcp)
+
+## Works With
+
+- [Claude Code](https://claude.ai/code) (Anthropic)
+- [Cursor](https://cursor.com)
+- [Windsurf](https://codeium.com/windsurf)
+- [Cline](https://github.com/cline/cline)
+- Any client supporting the [Model Context Protocol](https://modelcontextprotocol.io)
 
 ## Requirements
 
 - Node.js 18+
-- Apple Developer Program membership ($99/yr)
+- Apple Developer Program membership
 - App Store Connect API key (Admin or App Manager role)
 
 ## License
