@@ -175,8 +175,8 @@ Lead with the most impactful change.</span></pre>
     <!-- Features -->
     <section class="bg-[#12121a] py-20 md:py-28">
       <div class="max-w-4xl mx-auto px-6">
-        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-4">8 tools. 3 free, 5 Pro.</h2>
-        <p class="text-warm-400 mb-14">The free tools cover basics. The Pro tools do things no other ASC server can.</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-4">11 tools. 3 free, 8 Pro.</h2>
+        <p class="text-warm-400 mb-14">The free tools cover basics. The 8 Pro tools do things no other ASC server can: audits, briefings, keyword analysis, competitor intelligence, and more.</p>
 
         <p class="text-xs font-mono text-warm-600 uppercase tracking-wider mb-6">Free</p>
         <div class="grid md:grid-cols-3 gap-x-8 gap-y-8 mb-14">
@@ -211,6 +211,21 @@ Lead with the most impactful change.</span></pre>
             <p class="text-warm-400 leading-relaxed">Reads git commits since your last tag, categorizes them (features, fixes, improvements), and gives structured data for writing "What's New" text. Apple's 4,000-char limit validated.</p>
           </article>
 
+          <article class="border border-accent/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">keyword_insights</h3>
+            <p class="text-warm-400 leading-relaxed">Analyzes your keywords against real iTunes Search competition. Shows difficulty rating per keyword, how many competing apps rank for it, and whether you're using your full 100-char keyword budget.</p>
+          </article>
+
+          <article class="border border-accent/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">competitor_snapshot</h3>
+            <p class="text-warm-400 leading-relaxed">Look up any app by name or ID. Returns ratings, review count, version, last update, price, category, seller, and latest release notes. Side-by-side comparison table when multiple results match.</p>
+          </article>
+
+          <article class="border border-accent/20 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-warm-50 mb-2">metadata_diff</h3>
+            <p class="text-warm-400 leading-relaxed">Compares your live version's metadata against your pending version across all locales. Shows what changed in descriptions, keywords, promotional text, and "What's New" before you submit.</p>
+          </article>
+
           <article>
             <h3 class="text-lg font-semibold text-warm-50 mb-2">list_reviews</h3>
             <p class="text-warm-400 leading-relaxed">Customer reviews filtered by star rating (1-5), territory, and sort order.</p>
@@ -228,7 +243,7 @@ Lead with the most impactful change.</span></pre>
     <section class="py-20 md:py-28">
       <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl md:text-3xl font-bold text-warm-50 mb-6">Raw wrappers are free. Intelligence costs less than a lunch.</h2>
-        <p class="text-warm-400 mb-10 max-w-xl">Other servers give you 200+ raw API endpoints. They don't audit your metadata, summarize your morning, or generate your release notes. That's what you're paying $9 for.</p>
+        <p class="text-warm-400 mb-10 max-w-xl">Other servers give you 200+ raw API endpoints. They don't audit your metadata, analyze your keywords, snapshot your competitors, or write your release notes. That's what $9/mo gets you.</p>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
@@ -236,22 +251,17 @@ Lead with the most impactful change.</span></pre>
               <tr class="border-b border-white/10">
                 <th class="py-3 pr-6 text-warm-400 font-medium"></th>
                 <th class="py-3 pr-6 text-warm-400 font-medium">Free wrappers</th>
-                <th class="py-3 pr-6 text-accent font-medium">This server</th>
+                <th class="py-3 pr-6 text-accent font-medium">ASC MCP</th>
               </tr>
             </thead>
             <tbody class="text-warm-200">
               <tr class="border-b border-white/5">
-                <td class="py-3 pr-6 text-warm-400">Raw API endpoints</td>
-                <td class="py-3 pr-6">80-293</td>
-                <td class="py-3 pr-6">8 (focused)</td>
-              </tr>
-              <tr class="border-b border-white/5">
                 <td class="py-3 pr-6 text-warm-400">Pre-submission audit</td>
                 <td class="py-3 pr-6 text-warm-600">No</td>
-                <td class="py-3 pr-6 text-green-400">Yes</td>
+                <td class="py-3 pr-6 text-green-400">Yes (catches 40%+ of rejections)</td>
               </tr>
               <tr class="border-b border-white/5">
-                <td class="py-3 pr-6 text-warm-400">Cross-app briefings</td>
+                <td class="py-3 pr-6 text-warm-400">Cross-app daily briefing</td>
                 <td class="py-3 pr-6 text-warm-600">No</td>
                 <td class="py-3 pr-6 text-green-400">Yes</td>
               </tr>
@@ -259,6 +269,21 @@ Lead with the most impactful change.</span></pre>
                 <td class="py-3 pr-6 text-warm-400">Git-aware release notes</td>
                 <td class="py-3 pr-6 text-warm-600">No</td>
                 <td class="py-3 pr-6 text-green-400">Yes</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-6 text-warm-400">Keyword competition analysis</td>
+                <td class="py-3 pr-6 text-warm-600">No</td>
+                <td class="py-3 pr-6 text-green-400">Yes (vs iTunes Search data)</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-6 text-warm-400">Competitor lookup</td>
+                <td class="py-3 pr-6 text-warm-600">No</td>
+                <td class="py-3 pr-6 text-green-400">Yes (any app, any store)</td>
+              </tr>
+              <tr class="border-b border-white/5">
+                <td class="py-3 pr-6 text-warm-400">Metadata version diff</td>
+                <td class="py-3 pr-6 text-warm-600">No</td>
+                <td class="py-3 pr-6 text-green-400">Yes (live vs pending)</td>
               </tr>
               <tr class="border-b border-white/5">
                 <td class="py-3 pr-6 text-warm-400">Setup</td>
@@ -396,6 +421,18 @@ Lead with the most impactful change.</span></pre>
                 <span>release_notes (from your git history)</span>
               </li>
               <li class="flex gap-2">
+                <span class="text-accent shrink-0">&#9733;</span>
+                <span>keyword_insights (competition analysis)</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent shrink-0">&#9733;</span>
+                <span>competitor_snapshot (any app lookup)</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent shrink-0">&#9733;</span>
+                <span>metadata_diff (live vs pending)</span>
+              </li>
+              <li class="flex gap-2">
                 <span class="text-green-400 shrink-0">&#10003;</span>
                 <span>list_reviews (filter by rating, territory)</span>
               </li>
@@ -405,7 +442,7 @@ Lead with the most impactful change.</span></pre>
               </li>
               <li class="flex gap-2 text-warm-400">
                 <span class="shrink-0">&#8594;</span>
-                <span>Coming: review responses, keyword insights, competitor snapshots</span>
+                <span>Coming: review response drafts, subscription health</span>
               </li>
             </ul>
             <a href="https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu" class="block w-full text-center px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#12121a]">
