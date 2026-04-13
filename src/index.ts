@@ -15,6 +15,9 @@ import { salesReport } from "./tools/sales-report.js";
 import { releasePreflight } from "./tools/release-preflight.js";
 import { dailyBriefing } from "./tools/daily-briefing.js";
 import { releaseNotes } from "./tools/release-notes.js";
+import { keywordInsights } from "./tools/keyword-insights.js";
+import { competitorSnapshot } from "./tools/competitor-snapshot.js";
+import { metadataDiff } from "./tools/metadata-diff.js";
 
 function getConfig(): ASCConfig {
   const keyId = process.env.ASC_KEY_ID;
@@ -147,6 +150,35 @@ async function main() {
       max_commits: z.number().optional().describe("Max commits to include (default 50)"),
     },
     safe((args) => releaseNotes(args, tier)),
+  );
+
+  server.tool(
+    "keyword_insights",
+    "Analyze your app's keywords against search competition. Shows difficulty, competing apps, and budget usage. Uses iTunes Search API.",
+    {
+      app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID"),
+      extra_keywords: z.string().optional().describe("Extra comma-separated keywords to analyze beyond current metadata"),
+    },
+    safe((args) => keywordInsights(client, args, tier)),
+  );
+
+  server.tool(
+    "competitor_snapshot",
+    "Look up any app on the App Store: ratings, reviews, version, price, category, release notes. Search by name or App Store ID.",
+    {
+      query: z.string().describe('App name (e.g. "Medisafe") or numeric App Store ID'),
+      country: z.string().optional().describe("Two-letter country code (default: us)"),
+    },
+    safe((args) => competitorSnapshot(args, tier)),
+  );
+
+  server.tool(
+    "metadata_diff",
+    "Compare metadata between your live and pending app versions. Shows what changed in descriptions, keywords, and release notes across locales.",
+    {
+      app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID"),
+    },
+    safe((args) => metadataDiff(client, args, tier)),
   );
 
   const transport = new StdioServerTransport();
