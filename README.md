@@ -58,7 +58,7 @@ Then ask Claude:
 | `list_reviews` | Customer reviews with filtering and sorting |
 | `sales_report` | Download/sales/revenue summary reports |
 
-Get a Pro license at [agentcost.dev/pricing](https://agentcost.dev/pricing), then add `ASC_LICENSE_KEY` to your env.
+Get a Pro license at [buy.polar.sh](https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu), then add `ASC_LICENSE_KEY` to your env.
 
 ## Examples
 

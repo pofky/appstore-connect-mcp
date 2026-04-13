@@ -47,7 +47,7 @@ async function main() {
     console.error("appstore-connect-mcp: Pro license active. All tools available.");
   } else {
     console.error(
-      "appstore-connect-mcp: Free tier (3 tools). Upgrade at https://agentcost.dev/pricing",
+      "appstore-connect-mcp: Free tier (3 tools). Upgrade at https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu",
     );
   }
 

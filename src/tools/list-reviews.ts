@@ -47,7 +47,7 @@ export async function listReviews(
   if (tier !== "pro") {
     return (
       "Customer reviews require a Pro license ($19/mo).\n" +
-      "Get your license at: https://agentcost.dev/pricing\n\n" +
+      "Get your license at: https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu\n\n" +
       "Set ASC_LICENSE_KEY in your MCP server config to unlock."
     );
   }

@@ -44,6 +44,18 @@ export default {
         return handlePolarWebhook(request, env, corsHeaders);
       }
 
+      if (url.pathname === "/success") {
+        return handleSuccess(url, corsHeaders);
+      }
+
+      if (url.pathname === "/key" && request.method === "GET") {
+        return handleKeyPage(corsHeaders);
+      }
+
+      if (url.pathname === "/key" && request.method === "POST") {
+        return handleKeyLookup(request, env, corsHeaders);
+      }
+
       return json({ error: "Not found" }, corsHeaders, 404);
     } catch (err) {
       console.error("Worker error:", err);
@@ -172,6 +184,92 @@ function generateLicenseKey(): string {
     parts.push(part);
   }
   return `ASC-${parts.join("-")}`;
+}
+
+function handleSuccess(
+  url: URL,
+  headers: Record<string, string>,
+): Response {
+  return html(`
+    <h1>Thanks for subscribing!</h1>
+    <p>Your Pro license is ready. Enter the email you used at checkout to retrieve your license key:</p>
+    <form method="POST" action="/key">
+      <input type="email" name="email" placeholder="you@example.com" required
+        style="padding:10px;font-size:16px;width:300px;border:1px solid #555;border-radius:6px;background:#1a1a2e;color:#fff">
+      <button type="submit"
+        style="padding:10px 20px;font-size:16px;background:#4f46e5;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-left:8px">
+        Get License Key
+      </button>
+    </form>
+  `, headers);
+}
+
+function handleKeyPage(headers: Record<string, string>): Response {
+  return html(`
+    <h1>Retrieve Your License Key</h1>
+    <p>Enter the email you used when purchasing App Store Connect MCP Pro:</p>
+    <form method="POST" action="/key">
+      <input type="email" name="email" placeholder="you@example.com" required
+        style="padding:10px;font-size:16px;width:300px;border:1px solid #555;border-radius:6px;background:#1a1a2e;color:#fff">
+      <button type="submit"
+        style="padding:10px 20px;font-size:16px;background:#4f46e5;color:#fff;border:none;border-radius:6px;cursor:pointer;margin-left:8px">
+        Look Up Key
+      </button>
+    </form>
+  `, headers);
+}
+
+async function handleKeyLookup(
+  request: Request,
+  env: Env,
+  headers: Record<string, string>,
+): Promise<Response> {
+  const formData = await request.formData();
+  const email = formData.get("email") as string;
+
+  if (!email) {
+    return html("<h1>Email required</h1><p><a href='/key'>Try again</a></p>", headers, 400);
+  }
+
+  const row = await env.DB.prepare(
+    "SELECT key, tier, active FROM licenses WHERE email = ? AND active = 1 ORDER BY created_at DESC LIMIT 1",
+  )
+    .bind(email)
+    .first<{ key: string; tier: string; active: number }>();
+
+  if (!row) {
+    return html(`
+      <h1>No active license found</h1>
+      <p>No active Pro license found for <strong>${escapeHtml(email)}</strong>.</p>
+      <p>If you just purchased, it may take a minute for the webhook to process. <a href="/key">Try again</a>.</p>
+      <p>Need to subscribe? <a href="https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu">Get Pro</a></p>
+    `, headers);
+  }
+
+  return html(`
+    <h1>Your License Key</h1>
+    <div style="background:#1a1a2e;padding:20px;border-radius:8px;border:1px solid #333;margin:20px 0;font-family:monospace;font-size:20px;letter-spacing:2px;text-align:center">
+      ${escapeHtml(row.key)}
+    </div>
+    <p>Add this to your MCP server configuration:</p>
+    <pre style="background:#1a1a2e;padding:15px;border-radius:8px;overflow-x:auto">"ASC_LICENSE_KEY": "${escapeHtml(row.key)}"</pre>
+    <p style="color:#888;font-size:14px">Keep this key private. It unlocks Pro tools on your machine.</p>
+  `, headers);
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function html(body: string, extraHeaders: Record<string, string>, status = 200): Response {
+  const page = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App Store Connect MCP</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;max-width:600px;margin:40px auto;padding:0 20px;background:#0d0d1a;color:#e0e0e0}
+a{color:#818cf8}h1{color:#fff}pre{color:#a5b4fc}</style></head><body>${body}</body></html>`;
+  return new Response(page, {
+    status,
+    headers: { "Content-Type": "text/html;charset=utf-8", ...extraHeaders },
+  });
 }
 
 function json(
