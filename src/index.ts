@@ -58,31 +58,37 @@ async function main() {
 
   // --- Free tools ---
 
+  /** Wrap a tool handler so API errors return messages instead of crashing. */
+  function safe(fn: (...a: any[]) => Promise<string>) {
+    return async (...a: any[]) => {
+      try {
+        return { content: [{ type: "text" as const, text: await fn(...a) }] };
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        return { content: [{ type: "text" as const, text: `Error: ${msg}` }] };
+      }
+    };
+  }
+
   server.tool(
     "list_apps",
     "List all apps in your App Store Connect account with name, bundle ID, and platform.",
     { limit: z.number().optional().describe("Max apps to return (default 50, max 200)") },
-    async (args) => ({
-      content: [{ type: "text", text: await listApps(client, args) }],
-    }),
+    safe((args) => listApps(client, args)),
   );
 
   server.tool(
     "app_details",
     "Get detailed info about an app including versions, build status, and release state.",
     { app_id: z.string().describe("App Store Connect app ID (use list_apps to find it)") },
-    async (args) => ({
-      content: [{ type: "text", text: await appDetails(client, args) }],
-    }),
+    safe((args) => appDetails(client, args)),
   );
 
   server.tool(
     "review_status",
     "Check the current App Store review status — in review, waiting, approved, or rejected.",
     { app_id: z.string().describe("App Store Connect app ID") },
-    async (args) => ({
-      content: [{ type: "text", text: await reviewStatus(client, args) }],
-    }),
+    safe((args) => reviewStatus(client, args)),
   );
 
   // --- Pro tools (gated) ---
@@ -97,9 +103,7 @@ async function main() {
       sort: z.enum(["newest", "oldest", "rating_high", "rating_low"]).optional()
         .describe("Sort order (default: newest)"),
     },
-    async (args) => ({
-      content: [{ type: "text", text: await listReviews(client, args, tier) }],
-    }),
+    safe((args) => listReviews(client, args, tier)),
   );
 
   server.tool(
@@ -112,9 +116,7 @@ async function main() {
       report_date: z.string().optional()
         .describe("Date in YYYY-MM-DD (daily) or YYYY-MM (monthly). Default: yesterday."),
     },
-    async (args) => ({
-      content: [{ type: "text", text: await salesReport(client, args, tier) }],
-    }),
+    safe((args) => salesReport(client, args, tier)),
   );
 
   const transport = new StdioServerTransport();

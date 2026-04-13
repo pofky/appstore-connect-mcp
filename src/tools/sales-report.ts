@@ -45,13 +45,25 @@ export async function salesReport(
   const reportDate =
     args.report_date || getYesterday();
 
-  const tsv = await client.getReport({
-    reportType: "SALES",
-    reportSubType: "SUMMARY",
-    frequency,
-    vendorNumber: args.vendor_number,
-    reportDate,
-  });
+  let tsv: string;
+  try {
+    tsv = await client.getReport({
+      reportType: "SALES",
+      reportSubType: "SUMMARY",
+      frequency,
+      vendorNumber: args.vendor_number,
+      reportDate,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg.includes("Invalid vendor number")) {
+      return "Invalid vendor number. Find yours in App Store Connect → Sales and Trends → top right (Vendor ID).";
+    }
+    if (msg.includes("404")) {
+      return `No sales report available for ${reportDate}. Reports may take 1-2 days to appear.`;
+    }
+    return `Error fetching sales report: ${msg}`;
+  }
 
   if (tsv.startsWith("No report")) {
     return tsv;
