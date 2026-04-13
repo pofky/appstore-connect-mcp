@@ -1,5 +1,5 @@
 {
-  "name": "appstore-connect-mcp",
+  "name": "@pofky/appstore-connect-mcp",
   "version": "0.1.0",
   "description": "MCP server for Apple App Store Connect — manage iOS apps from your AI agent",
   "main": "dist/index.js",

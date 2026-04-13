@@ -7,7 +7,7 @@ MCP server for Apple App Store Connect. Manage your iOS and macOS apps directly 
 ## Quick Start
 
 ```bash
-npm install -g appstore-connect-mcp
+npm install -g @pofky/appstore-connect-mcp
 ```
 
 Add to your Claude Code MCP config (`~/.claude/settings.json`):
