@@ -138,6 +138,13 @@ Your credentials never leave your machine:
 - Apple Developer Program membership
 - App Store Connect API key (Admin or App Manager role)
 
+## Legal
+
+- [Privacy Policy](https://asc-mcp-license.remewdy.workers.dev/privacy)
+- [Terms of Service](https://asc-mcp-license.remewdy.workers.dev/terms)
+
+This project is not affiliated with, endorsed by, or sponsored by Apple Inc. Apple, App Store, App Store Connect, TestFlight, iOS, and macOS are trademarks of Apple Inc.
+
 ## License
 
 MIT

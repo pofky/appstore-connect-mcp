@@ -80,14 +80,14 @@ async function main() {
   server.tool(
     "app_details",
     "Get detailed info about an app including versions, build status, and release state.",
-    { app_id: z.string().describe("App Store Connect app ID (use list_apps to find it)") },
+    { app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID (use list_apps to find it)") },
     safe((args) => appDetails(client, args)),
   );
 
   server.tool(
     "review_status",
     "Check the current App Store review status — in review, waiting, approved, or rejected.",
-    { app_id: z.string().describe("App Store Connect app ID") },
+    { app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID") },
     safe((args) => reviewStatus(client, args)),
   );
 
@@ -97,7 +97,7 @@ async function main() {
     "list_reviews",
     "List customer reviews for an app. Filter by rating. Pro feature.",
     {
-      app_id: z.string().describe("App Store Connect app ID"),
+      app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID"),
       rating: z.number().min(1).max(5).optional().describe("Filter by star rating (1-5)"),
       limit: z.number().optional().describe("Max reviews (default 20, max 100)"),
       sort: z.enum(["newest", "oldest", "rating_high", "rating_low"]).optional()
