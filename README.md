@@ -158,7 +158,7 @@ Your credentials never leave your machine:
 - The `.p8` private key is read locally. JWT tokens are generated on your computer.
 - API calls go directly from your machine to `api.appstoreconnect.apple.com`.
 - The license server sees only your license key string. Zero Apple data, zero credentials.
-- Fully open source. [Read the code.](https://github.com/pofky/appstore-connect-mcp)
+- Fully open source. [Read the code.](https://github.com/pofky/asc-mcp)
 
 ## Works With
 

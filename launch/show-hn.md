@@ -13,13 +13,13 @@ What it does:
 - Read customer reviews (paid)
 - Pull sales/download numbers (paid)
 
-The first three are free. Reviews and sales are $19/mo because those hit Apple's API more heavily and I need to cover my costs.
+The first three are free. Reviews and sales are $9/mo because those hit Apple's API more heavily and I need to cover my costs.
 
 Works with Claude Code, Cursor, Windsurf, or anything that speaks MCP.
 
-Install: npm install -g @pofky/appstore-connect-mcp
+Install: npm install -g @pofky/asc-mcp
 
-Source: https://github.com/pofky/appstore-connect-mcp
+Source: https://github.com/pofky/asc-mcp
 
 There are a few other ASC MCP servers out there (STOMP, mcp-asc) but they try to wrap the entire API - 100+ tools. I just wanted the five things I actually check every day.
 

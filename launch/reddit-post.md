@@ -19,8 +19,8 @@ So I built an MCP server (Model Context Protocol) that connects Claude Code dire
 
 **Setup:** ~3 minutes. Create an ASC API key, npm install, add to Claude settings.
 
-**Pricing:** Free tier (3 tools) works with no account. Pro ($19/mo) unlocks reviews + sales reports.
+**Pricing:** Free tier (3 tools) works with no account. Pro ($9/mo) unlocks reviews + sales reports.
 
-**GitHub:** https://github.com/pofky/appstore-connect-mcp
+**GitHub:** https://github.com/pofky/asc-mcp
 
 Would love to know what other ASC features you'd want - TestFlight management and metadata updates are next on my list.

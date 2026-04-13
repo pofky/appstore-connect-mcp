@@ -11,14 +11,14 @@ You can ask things like:
 - "Show me my 1-star reviews" - filtered reviews right in your terminal
 - "What were my downloads this week?" - quick sales summary
 
-Three tools are free (list apps, app details, review status). Reviews and sales reports are $19/mo since I need to keep the lights on.
+Three tools are free (list apps, app details, review status). Reviews and sales reports are $9/mo since I need to keep the lights on.
 
 Your API key stays on your machine - the server generates JWT tokens locally and talks to Apple directly. The only thing that hits my infrastructure is a license check.
 
 Takes about 3 minutes to set up: create an API key in ASC, install via npm, add a few env vars.
 
-`npm install -g @pofky/appstore-connect-mcp`
+`npm install -g @pofky/asc-mcp`
 
-Source: https://github.com/pofky/appstore-connect-mcp
+Source: https://github.com/pofky/asc-mcp
 
 There are bigger ASC MCP servers out there (STOMP has 162 tools) but I just wanted something simple that covers what I actually check daily. Open to suggestions on what to add next.

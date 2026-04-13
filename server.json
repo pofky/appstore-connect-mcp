@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.pofky/appstore-connect-mcp",
-  "description": "Check app review status, read reviews, download sales reports from App Store Connect",
+  "name": "io.github.pofky/asc-mcp",
+  "description": "MCP server for App Store Connect - pre-submission audits, daily briefings, release notes, reviews, sales reports. Intelligence layer, not just an API wrapper.",
   "repository": {
-    "url": "https://github.com/pofky/appstore-connect-mcp",
+    "url": "https://github.com/pofky/asc-mcp",
     "source": "github"
   },
-  "version": "0.2.1",
+  "version": "1.0.0",
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "@pofky/appstore-connect-mcp",
-      "version": "0.2.1",
+      "identifier": "@pofky/asc-mcp",
+      "version": "1.0.0",
       "transport": {
         "type": "stdio"
       },
@@ -38,7 +38,7 @@
           "name": "ASC_PRIVATE_KEY_PATH"
         },
         {
-          "description": "Pro license key for reviews and sales tools (optional, get at buy.polar.sh)",
+          "description": "Pro license key for intelligence tools, reviews, and sales (optional, get at buy.polar.sh)",
           "isRequired": false,
           "format": "string",
           "isSecret": true,

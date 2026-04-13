@@ -1,5 +1,5 @@
 /**
- * License validation CF Worker for appstore-connect-mcp.
+ * License validation CF Worker for ASC MCP (@pofky/asc-mcp).
  *
  * Endpoints:
  *   POST /validate       - check a license key, return tier
