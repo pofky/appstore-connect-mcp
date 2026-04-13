@@ -8,7 +8,7 @@ npm install -g @pofky/asc-mcp
 
 ## What Makes This Different
 
-Other ASC MCP servers wrap the API and give you 80-293 raw endpoints. This one gives you 8 tools that think:
+Other ASC MCP servers wrap the API and give you 80-293 raw endpoints. This one gives you 11 tools that think:
 
 | You say | What happens |
 |---------|-------------|
@@ -72,8 +72,11 @@ Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and any MCP-com
 | `release_preflight` | Pre-submission audit: metadata, char limits, screenshots, builds | Catches 40%+ of common rejection causes before you submit |
 | `daily_briefing` | Morning summary across all apps: status, reviews, rejections | One call replaces 10 minutes of portal clicking |
 | `release_notes` | Git commits since last tag, categorized for writing "What's New" | Your AI agent writes release notes from your actual changes |
+| `keyword_insights` | Analyze keywords against iTunes search competition, difficulty ratings | See which keywords are worth targeting at a glance |
+| `competitor_snapshot` | Look up any app: ratings, reviews, version, price, release notes | Competitive intelligence without leaving your editor |
+| `metadata_diff` | Compare live vs pending version metadata across all locales | Verify exactly what changed before submitting |
 
-**Coming next:** review response drafting, keyword/ASO insights, competitor snapshots.
+**Coming next:** review response drafting, subscription health dashboard.
 
 [Get Pro](https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu) | [Retrieve your license key](https://asc-mcp-license.remewdy.workers.dev/key)
 
