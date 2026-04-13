@@ -1,6 +1,6 @@
 # App Store Connect MCP Server
 
-> **The missing MCP server for iOS developers.** Check app review status, read customer reviews, and download sales reports — directly from Claude Code, Cursor, Windsurf, or any MCP-compatible AI agent. No more switching to the App Store Connect portal.
+> **The missing MCP server for iOS developers.** Check app review status, read customer reviews, and download sales reports - directly from Claude Code, Cursor, Windsurf, or any MCP-compatible AI agent. No more switching to the App Store Connect portal.
 
 ```bash
 npm install -g @pofky/appstore-connect-mcp
@@ -57,9 +57,9 @@ That's it. Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and 
 
 | Tool | What it does |
 |------|-------------|
-| `list_apps` | List all your apps — name, bundle ID, SKU, platform |
+| `list_apps` | List all your apps - name, bundle ID, SKU, platform |
 | `app_details` | Full version history, build status, release state, dates |
-| `review_status` | Current review state: in review, waiting, approved, rejected — with human-readable context like "Your app is currently being reviewed. Typical time: 24-48 hours." |
+| `review_status` | Current review state: in review, waiting, approved, rejected - with human-readable context like "Your app is currently being reviewed. Typical time: 24-48 hours." |
 
 ### Pro ($19/mo)
 
@@ -78,8 +78,8 @@ That's it. Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and 
 ```
 Found 2 app(s):
 
-- Remewdy: Pet Med Tracker (com.remewdy.app) — ID: 6761487030
-- GeoWrecked - World Trivia (app.geowrecked.ios) — ID: 6759347056
+- Remewdy: Pet Med Tracker (com.remewdy.app) - ID: 6761487030
+- GeoWrecked - World Trivia (app.geowrecked.ios) - ID: 6759347056
 ```
 
 **"Is Remewdy in review?"**
@@ -98,7 +98,7 @@ Your app is in the review queue. It has not been picked up by a reviewer yet.
 Customer Reviews (3 shown)
 
 ★☆☆☆☆ App crashes on launch
-By user123 — US — 2026-04-12
+By user123 - US - 2026-04-12
 The app crashes immediately after the splash screen...
 ```
 
@@ -113,7 +113,7 @@ Other App Store Connect MCP servers exist. Here's how this compares:
 | mcp-asc | 80+ | Active | No | No |
 | **This one** | **5** | **Active** | **Yes** | **Yes** |
 
-This server does 5 things well instead of 162 things poorly. Free tier works immediately — install and go. Pro unlocks reviews and sales when you need them.
+This server does 5 things well instead of 162 things poorly. Free tier works immediately - install and go. Pro unlocks reviews and sales when you need them.
 
 ## Security
 
@@ -121,7 +121,7 @@ Your credentials never leave your machine:
 
 - The `.p8` private key is read locally. JWT tokens are generated on your computer.
 - API calls go directly from your machine to `api.appstoreconnect.apple.com`.
-- Our license server sees only your license key string — zero Apple data, zero credentials.
+- Our license server sees only your license key string - zero Apple data, zero credentials.
 - Fully open source. [Read the code.](https://github.com/pofky/appstore-connect-mcp)
 
 ## Works With

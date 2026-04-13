@@ -10,10 +10,10 @@ Free, open source: github.com/pofky/appstore-connect-mcp
 ## Tweet 2
 What it does:
 
-- "list my apps" — shows your apps with bundle IDs
-- "is my app in review?" — tells you the status in plain English
-- "show me 1-star reviews" — customer feedback right in your terminal
-- "what were my downloads?" — sales numbers
+- "list my apps" - shows your apps with bundle IDs
+- "is my app in review?" - tells you the status in plain English
+- "show me 1-star reviews" - customer feedback right in your terminal
+- "what were my downloads?" - sales numbers
 
 First 3 are free.
 
