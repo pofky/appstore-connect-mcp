@@ -11,7 +11,7 @@ asc-mcp install-skill   # one-line, optional, for auto-routed review questions
 
 ## What Makes This Different
 
-Other ASC MCP servers wrap the API and give you 80 to 293 raw endpoints. This one gives you 11 tools plus 3 Prompts plus a Skill that all think:
+Other ASC MCP servers wrap the API and give you 80 to 293 raw endpoints. This one gives you 13 opinionated tools, 3 slash-command Prompts, and a Claude Skill that all think. Two of the tools use MCP Sampling: your own client's model does the LLM work, so there is no extra cost from this server.
 
 | You say | What happens |
 |---------|-------------|
@@ -78,10 +78,20 @@ Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and any MCP-com
 | `keyword_insights` | Analyze keywords against iTunes search competition, difficulty ratings | See which keywords are worth targeting at a glance |
 | `competitor_snapshot` | Look up any app: ratings, reviews, version, price, release notes | Competitive intelligence without leaving your editor |
 | `metadata_diff` | Compare live vs pending version metadata across all locales | Verify exactly what changed before submitting |
+| `triage_reviews` | Pulls recent reviews and clusters them into 3 to 5 themes with counts, action buckets, and quotes, using MCP Sampling | Zero extra cost: your client's model does the clustering |
+| `draft_review_response` | Drafts a public reply to a single review in the review's locale, via Sampling. Elicits tone if your client supports it. Never auto-posts. | Apple guideline 1.2 respected; you paste into ASC yourself |
 
-**Coming next (Week 2):** LLM-powered review clustering via MCP Sampling, Elicitation-driven response drafts, rejection-risk scoring against the 2026 corpus.
+**Coming next (Week 3):** rejection-risk scoring against the 2026 corpus (guideline 2.3 metadata, 4.0 design, privacy-AI 5.1.2).
 
 [Get Pro](https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu) | [Retrieve your license key](https://asc-mcp-license.remewdy.workers.dev/key)
+
+## How Sampling works (zero extra cost)
+
+`triage_reviews` and `draft_review_response` use the MCP Sampling primitive. When you call one of these tools, this server sends a `sampling/createMessage` request back to your own MCP client. Your client runs the LLM locally (Claude Desktop uses your account; Claude Code uses its session). We never call Anthropic from our side.
+
+Outcome: review clustering and reply drafting cost you exactly what you would pay for any other Claude request, not a penny more from this server.
+
+If your MCP client does not support Sampling yet, both tools return a structured `degraded: true` result with a clear explanation. Upgrade Claude Desktop or Claude Code to a recent version for full functionality.
 
 ## Slash Commands (Prompts)
 
@@ -171,8 +181,9 @@ Lead with the most impactful change. Keep under 4000 chars.
 
 | | Raw API wrappers (free) | This server |
 |---|---|---|
-| **Tool count** | 80 to 293 | 11 opinionated tools |
+| **Tool count** | 80 to 293 | 13 opinionated tools |
 | **MCP Prompts (slash commands)** | No | Yes, 3 pre-built workflows |
+| **MCP Sampling (zero server-side LLM cost)** | No | Yes, review triage + response drafts |
 | **Claude Skill bundled** | No | Yes, one-line install |
 | **Pre-submission audit** | No | Yes, catches rejections before you submit |
 | **Cross-app briefings** | No | Yes, one call, all apps |

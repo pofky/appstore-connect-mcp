@@ -20,8 +20,10 @@ import { releaseNotes } from "./tools/release-notes.js";
 import { keywordInsights } from "./tools/keyword-insights.js";
 import { competitorSnapshot } from "./tools/competitor-snapshot.js";
 import { metadataDiff } from "./tools/metadata-diff.js";
+import { triageReviews, formatTriageForAgent } from "./tools/triage-reviews.js";
+import { draftReviewResponse, formatDraftForAgent } from "./tools/draft-review-response.js";
 
-const SERVER_VERSION = "1.2.0";
+const SERVER_VERSION = "1.3.0";
 
 function getConfig(): ASCConfig {
   const keyId = process.env.ASC_KEY_ID;
@@ -71,6 +73,8 @@ async function main() {
         tools: {},
         prompts: {},
       },
+      instructions:
+        "App Store Connect MCP. Tools query the ASC API. Slash-command Prompts seed multi-tool workflows. triage_reviews and draft_review_response use MCP Sampling (your own client's model, zero extra cost). draft_review_response never auto-posts: it returns a draft only.",
     },
   );
 
@@ -193,6 +197,65 @@ async function main() {
     safe((args) => metadataDiff(client, args, tier)),
   );
 
+  // --- Sampling-powered tools (Pro) ---
+  server.registerTool(
+    "triage_reviews",
+    {
+      title: "Triage reviews into themes (Sampling)",
+      description:
+        "Pull recent App Store reviews and use MCP Sampling to cluster them into 3 to 5 themes with counts, representative quotes, and action buckets (bug, missing_feature, pricing, ux, content). Sampling uses your own MCP client's model, so there is no extra cost from this server. Pro feature.",
+      inputSchema: {
+        app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID"),
+        rating: z.number().min(1).max(5).optional().describe("Filter by star rating (1 to 5). Omit for all."),
+        limit: z.number().min(1).max(30).optional().describe("Max reviews (default 30, hard cap 30)"),
+        days: z.number().min(1).max(90).optional().describe("Look-back window in days (default 30)"),
+      },
+    },
+    async (args) => {
+      try {
+        const result = await triageReviews(server, client, args, tier);
+        return {
+          content: [{ type: "text" as const, text: formatTriageForAgent(result) }],
+          structuredContent: result as unknown as Record<string, unknown>,
+        };
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        return { content: [{ type: "text" as const, text: `Error: ${msg}` }] };
+      }
+    },
+  );
+
+  server.registerTool(
+    "draft_review_response",
+    {
+      title: "Draft a public response to a review (Sampling + Elicitation)",
+      description:
+        "Draft a public reply to a single App Store review via MCP Sampling, in the review's locale. Uses Elicitation (if your client supports it) to ask for tone. NEVER auto-posts. Always returns a draft that you must post via App Store Connect yourself. Pro feature.",
+      inputSchema: {
+        app_id: z.string().regex(/^\d+$/, "App ID must be numeric").describe("App Store Connect app ID"),
+        review_id: z.string().min(1).describe("Customer review ID (from list_reviews)"),
+        tone: z.enum(["apologetic", "factual", "promotional", "curious"]).optional()
+          .describe("Tone; if omitted and the client supports Elicitation, the user will be asked interactively."),
+        include_support_link: z.boolean().optional()
+          .describe("Mention that users can reach support (no phone/email, per Apple guideline 1.2)."),
+        context_note: z.string().max(500).optional()
+          .describe("Optional context to weave in (e.g. 'fix ships in v2.5')."),
+      },
+    },
+    async (args) => {
+      try {
+        const result = await draftReviewResponse(server, client, args, tier);
+        return {
+          content: [{ type: "text" as const, text: formatDraftForAgent(result) }],
+          structuredContent: result as unknown as Record<string, unknown>,
+        };
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        return { content: [{ type: "text" as const, text: `Error: ${msg}` }] };
+      }
+    },
+  );
+
   // --- Prompts (slash commands in Claude Desktop / Code) ---
   const prompts = registerPrompts(server);
   console.error(
@@ -201,6 +264,8 @@ async function main() {
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
+  // Sampling/Elicitation capability is only known after initialize; per-tool
+  // degradation handles the mismatch (see triage_reviews + draft_review_response).
 }
 
 function dispatchCli(argv: string[]): number | null {

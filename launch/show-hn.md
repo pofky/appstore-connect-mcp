@@ -2,12 +2,11 @@
 
 ## DECISION REQUIRED BEFORE POSTING
 
-Two title options. Post the one matching what is actually shipped at post time.
+v1.3.0 shipped Sampling. Option A is the active draft.
 
-- **Option A (Week 2 post, after Sampling ships):** `Show HN: An App Store Connect MCP that actually thinks, with Sampling, Prompts, and a Claude Skill, not another API wrapper`
-- **Option B (Week 1 post, current reality):** `Show HN: An App Store Connect MCP with Prompts and a Claude Skill, not another API wrapper`
+**Title (Option A, honest as of v1.3.0):** `Show HN: An App Store Connect MCP that actually thinks, with Sampling, Prompts, and a Claude Skill, not another API wrapper`
 
-Honest title at post time is critical. HN rings nuke accounts. Do not claim a feature that is not merged.
+Honest title at post time is critical. HN rings nuke accounts. Do not claim a feature that is not merged. v1.3.0 has Prompts + Skill + Sampling live on npm.
 
 Post day: Tuesday 14:00 UTC. First-comment prep below. Mod-rule reminders at the bottom.
 
