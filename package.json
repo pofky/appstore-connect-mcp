@@ -1,7 +1,7 @@
 {
   "name": "@pofky/asc-mcp",
-  "version": "1.1.0",
-  "description": "MCP server for Apple App Store Connect API - check review status, read customer reviews, download sales reports, pre-submission audit, daily briefings. Works with Claude Code, Cursor, Windsurf, or any AI coding agent. Free tier included.",
+  "version": "1.2.0",
+  "description": "The App Store Connect intelligence layer for your coding agent. 11 tools, 3 slash-command Prompts, and a bundled Claude Skill. Works with Claude Code, Claude Desktop, Cursor, Windsurf, or any MCP-compatible client. Free tier included.",
   "main": "dist/index.js",
   "bin": {
     "asc-mcp": "dist/index.js",
@@ -57,6 +57,7 @@
   },
   "files": [
     "dist/",
+    "skills/",
     "README.md",
     "LICENSE"
   ]

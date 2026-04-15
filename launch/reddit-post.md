@@ -1,26 +1,35 @@
-# r/iOSProgramming post
+# r/iOSProgramming post (v1.2.0)
 
-**Title:** I built an MCP server for App Store Connect - check review status from Claude Code
+**Subreddit rules check:** r/iOSProgramming bans pure promotional posts. Post here only if you have prior comment karma in the sub or after engaging in the weekly "What are you working on?" thread for two weeks first. Otherwise, post to r/iOSProgramming's weekly showcase thread instead.
+
+**Title:** I built an MCP server for App Store Connect that ships Prompts and a Claude Skill, not another API wrapper
 
 **Body:**
 
-I manage two iOS apps and got frustrated constantly switching to the ASC portal during coding sessions just to check if my build was still in review or to read customer reviews.
+If you manage iOS apps and use Claude Code, Cursor, or any MCP client, you have probably tried wiring App Store Connect in and hit the same wall I did: the existing MCP servers dump 80 to 293 raw API tools into the agent's context and the agent has no idea which one to call for the question you just asked.
 
-So I built an MCP server (Model Context Protocol) that connects Claude Code directly to Apple's App Store Connect API.
+I shipped a different take. @pofky/asc-mcp v1.2.0 has 11 opinionated tools plus three slash-command workflows plus a Claude Skill. All of it is about getting the agent to do the right thing without you having to explain the tool sequence.
 
-**What it does:**
-- list_apps - see all your apps with bundle IDs
-- app_details - versions, build status, release state
-- review_status - current review status with helpful context ("Your app is currently being reviewed by Apple. Typical review time is 24-48 hours.")
-- list_reviews - customer reviews with star rating filtering (Pro)
-- sales_report - download and revenue summaries (Pro)
+**Why I built it:** the big community ASC MCP (JoshuaRileyDev's) was archived in February. I wanted something maintained that also added the intelligence layer his repo never got to.
 
-**Security:** Your .p8 private key stays on your machine. JWT tokens generated locally. The only thing our server sees is a license key string.
+**What is in it:**
 
-**Setup:** ~3 minutes. Create an ASC API key, npm install, add to Claude settings.
+- 11 tools: `list_apps`, `app_details`, `review_status` (free), plus `list_reviews`, `sales_report`, `release_preflight`, `daily_briefing`, `release_notes`, `keyword_insights`, `competitor_snapshot`, `metadata_diff` (Pro)
+- 3 MCP Prompts (slash commands): `/asc-weekly-review`, `/asc-rejection-audit`, `/asc-release-go-no-go`
+- 1 Claude Skill, auto-routes review questions to the MCP
+- `release_preflight` catches the metadata + screenshot + build issues that drive about 40% of rejections
 
-**Pricing:** Free tier (3 tools) works with no account. Pro ($9/mo) unlocks reviews + sales reports.
+**Security:** your `.p8` stays local. JWT tokens generated on your machine. API calls go directly to Apple. License server sees only a license-key string.
 
-**GitHub:** https://github.com/pofky/asc-mcp
+**Pricing:** free tier is 3 tools, no account. Pro is $9 a month for the other 8 plus workflows plus Skill. Polar handles billing and VAT.
 
-Would love to know what other ASC features you'd want - TestFlight management and metadata updates are next on my list.
+**Install:**
+
+```
+npm install -g @pofky/asc-mcp
+asc-mcp install-skill
+```
+
+GitHub: https://github.com/pofky/asc-mcp
+
+Happy to hear what workflows would actually help you. I have `/asc-pricing-check` on the roadmap plus subscription health, and next week I am shipping Sampling so the MCP can ask your own Claude to cluster reviews by theme without me paying for LLM tokens.

@@ -1,14 +1,17 @@
 # App Store Connect MCP Server
 
-> **Not another API wrapper.** This MCP server catches rejections before you submit, gives you a morning briefing across all your apps, and writes your release notes from git history. The 5 free tools cover basics. The 3 Pro tools are things no other ASC server does.
+> **The App Store Connect intelligence layer for your coding agent.** 11 tools that think, 3 slash-command workflows, and a bundled Claude Skill. Not another API wrapper.
+
+Maintained successor to [JoshuaRileyDev/app-store-connect-mcp-server](https://github.com/JoshuaRileyDev/app-store-connect-mcp-server) (archived Feb 2026). Different angle, same API surface plus more.
 
 ```bash
 npm install -g @pofky/asc-mcp
+asc-mcp install-skill   # one-line, optional, for auto-routed review questions
 ```
 
 ## What Makes This Different
 
-Other ASC MCP servers wrap the API and give you 80-293 raw endpoints. This one gives you 11 tools that think:
+Other ASC MCP servers wrap the API and give you 80 to 293 raw endpoints. This one gives you 11 tools plus 3 Prompts plus a Skill that all think:
 
 | You say | What happens |
 |---------|-------------|
@@ -76,9 +79,33 @@ Works with **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and any MCP-com
 | `competitor_snapshot` | Look up any app: ratings, reviews, version, price, release notes | Competitive intelligence without leaving your editor |
 | `metadata_diff` | Compare live vs pending version metadata across all locales | Verify exactly what changed before submitting |
 
-**Coming next:** review response drafting, subscription health dashboard.
+**Coming next (Week 2):** LLM-powered review clustering via MCP Sampling, Elicitation-driven response drafts, rejection-risk scoring against the 2026 corpus.
 
 [Get Pro](https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu) | [Retrieve your license key](https://asc-mcp-license.remewdy.workers.dev/key)
+
+## Slash Commands (Prompts)
+
+Type these in Claude Desktop or Claude Code and the agent runs a pre-built multi-tool workflow:
+
+| Slash command | What it does |
+|---------------|--------------|
+| `/asc-weekly-review` | Calls `daily_briefing` then `list_reviews` (low-rating, last 7 days) for every app, clusters themes, returns a single digest with 3-bullet action list. |
+| `/asc-rejection-audit` | Given an `app_id`, calls `release_preflight` + `metadata_diff` + `review_status`, reads the result against the top 2026 rejection drivers (guideline 2.3 metadata, 4.0 design, privacy-AI 5.1.2). Produces Blocking / Likely-flagged / Safe sections. |
+| `/asc-release-go-no-go` | Given an `app_id`, combines preflight + review queue + metadata diff + top competitors in the same category. Returns a direct GO or NO-GO with three supporting reasons. |
+
+These are MCP Prompts per the [spec](https://modelcontextprotocol.io/docs/concepts/prompts/). Zero other App Store Connect MCP ships with them.
+
+## Claude Skill (one-line install)
+
+After installing the MCP, run:
+
+```bash
+asc-mcp install-skill
+```
+
+This copies a small `asc-review-triage` Skill to `~/.claude/skills/` so Claude automatically picks up review-related questions ("any bad reviews lately?", "what do my users say?", "ratings this week?") and calls the right ASC tools without you having to explain the workflow each time.
+
+Works on macOS, Linux, and Windows. To remove: `asc-mcp uninstall-skill`.
 
 ## Real Output Examples
 
@@ -144,13 +171,15 @@ Lead with the most impactful change. Keep under 4000 chars.
 
 | | Raw API wrappers (free) | This server |
 |---|---|---|
-| **Tool count** | 80-293 | 8 |
-| **Pre-submission audit** | No | Yes - catches rejections before you submit |
-| **Cross-app briefings** | No | Yes - one call, all apps |
-| **Git-aware release notes** | No | Yes - reads your project's commit history |
-| **Smart review summaries** | No | Yes - sentiment grouping, action items |
-| **Setup** | Build from source (Swift/macOS) | `npm install -g` (any OS) |
-| **Free tier** | Some | Yes - 3 tools, no account needed |
+| **Tool count** | 80 to 293 | 11 opinionated tools |
+| **MCP Prompts (slash commands)** | No | Yes, 3 pre-built workflows |
+| **Claude Skill bundled** | No | Yes, one-line install |
+| **Pre-submission audit** | No | Yes, catches rejections before you submit |
+| **Cross-app briefings** | No | Yes, one call, all apps |
+| **Git-aware release notes** | No | Yes, reads your project's commit history |
+| **Smart review summaries** | No | Yes, theme clustering, action items |
+| **Setup** | Build from source (Swift or Node) | `npm install -g` (any OS) |
+| **Free tier** | Some | Yes, 3 tools, no account needed |
 
 Raw wrappers give you endpoints. This gives you answers.
 

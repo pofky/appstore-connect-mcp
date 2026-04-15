@@ -1,30 +1,55 @@
-# Twitter/X thread
+# X thread (v1.2.0)
 
-## Tweet 1
-Got tired of switching to App Store Connect every time I wanted to check if my app was still in review.
+Post sequence: 1 tweet every 45 seconds. Do not thread all at once, feels spammy.
 
-Built an MCP server so I can just ask from my editor: "is Remewdy in review?"
+## Tweet 1 (hook)
 
-Free, open source: github.com/pofky/asc-mcp
+i used to tab-hop to app store connect 20 times a day just to check if my build was still in review.
 
-## Tweet 2
-What it does:
+built an MCP server so my coding agent can just answer it. 11 tools, 3 slash commands, a Claude Skill.
 
-- "list my apps" - shows your apps with bundle IDs
-- "is my app in review?" - tells you the status in plain English
-- "show me 1-star reviews" - customer feedback right in your terminal
-- "what were my downloads?" - sales numbers
+no other ASC MCP ships prompts or a skill. mine does.
 
-First 3 are free.
+## Tweet 2 (what you can actually say)
 
-## Tweet 3
-Setup is like 3 minutes. Create an API key in App Store Connect, npm install, add to your claude/cursor config. That's it.
+slash commands you can type in Claude Desktop:
 
-Your .p8 key stays on your machine. Nothing goes through my servers except a license check.
+/asc-weekly-review -> digest of all apps + low-rating reviews from last 7 days
+/asc-rejection-audit <app_id> -> catches metadata / screenshot issues before Apple does
+/asc-release-go-no-go <app_id> -> ships a GO or NO-GO with reasoning
 
+## Tweet 3 (skill)
+
+claude skills are the procedural knowledge layer. install ours with one command:
+
+asc-mcp install-skill
+
+then just ask "any bad reviews lately?" and claude auto-routes to the MCP, calls list_reviews + review_status, and summarizes by theme.
+
+## Tweet 4 (why now)
+
+JoshuaRileyDev's ASC MCP (the community favorite, 316 stars) got archived in Feb 2026. i am shipping the maintained successor with the AI-native layer his repo never got to.
+
+## Tweet 5 (install + pricing)
+
+install:
 npm install -g @pofky/asc-mcp
+asc-mcp install-skill
 
-## Tweet 4
-I know there are other ASC MCP servers (STOMP has 162 tools). I just wanted the five things I actually check as an indie dev. Not trying to wrap the entire Apple API.
+free tier = 3 tools. pro = $9/mo for the other 8 + slash commands + skill.
 
-What would you add? Thinking TestFlight next.
+.p8 stays on your machine. Polar handles billing + VAT.
+
+github.com/pofky/asc-mcp
+
+## Tweet 6 (what is next)
+
+week 2: MCP Sampling so the MCP asks your own Claude to cluster reviews + draft localized response replies. zero LLM bill for me, zero price hike for you.
+
+week 3: rejection-risk scoring vs the 2026 corpus (guideline 2.3, 4.0, privacy-AI 5.1.2).
+
+## Tweet 7 (reply-bait close)
+
+if you ship iOS apps, what's the one thing you still check the ASC portal for that a coding agent should answer instead?
+
+i will build the top 3 answers.

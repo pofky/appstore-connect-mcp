@@ -5,6 +5,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { ASCClient } from "./client.js";
 import { validateLicense } from "./license.js";
+import { registerPrompts } from "./prompts.js";
+import { installSkill, uninstallSkill } from "./skill-installer.js";
 import type { ASCConfig, Tier } from "./types.js";
 
 import { listApps } from "./tools/list-apps.js";
@@ -18,6 +20,8 @@ import { releaseNotes } from "./tools/release-notes.js";
 import { keywordInsights } from "./tools/keyword-insights.js";
 import { competitorSnapshot } from "./tools/competitor-snapshot.js";
 import { metadataDiff } from "./tools/metadata-diff.js";
+
+const SERVER_VERSION = "1.2.0";
 
 function getConfig(): ASCConfig {
   const keyId = process.env.ASC_KEY_ID;
@@ -50,17 +54,25 @@ async function main() {
   const tier: Tier = await validateLicense(config.licenseKey);
 
   if (tier === "pro") {
-    console.error("asc-mcp: Pro license active. All tools available.");
+    console.error(`asc-mcp ${SERVER_VERSION}: Pro license active. All tools available.`);
   } else {
     console.error(
-      "asc-mcp: Free tier (3 tools). Upgrade at https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu",
+      `asc-mcp ${SERVER_VERSION}: Free tier (3 tools). Upgrade at https://buy.polar.sh/polar_cl_Ta3OxEA1EbRyYNPFtSsRXgYWBCCtjwMxlbAeW35RLuu`,
     );
   }
 
-  const server = new McpServer({
-    name: "asc-mcp",
-    version: "0.1.0",
-  });
+  const server = new McpServer(
+    {
+      name: "asc-mcp",
+      version: SERVER_VERSION,
+    },
+    {
+      capabilities: {
+        tools: {},
+        prompts: {},
+      },
+    },
+  );
 
   // --- Free tools ---
 
@@ -181,8 +193,42 @@ async function main() {
     safe((args) => metadataDiff(client, args, tier)),
   );
 
+  // --- Prompts (slash commands in Claude Desktop / Code) ---
+  const prompts = registerPrompts(server);
+  console.error(
+    `asc-mcp: ${prompts.length} prompt(s) registered: ${prompts.map((p) => "/" + p.name).join(", ")}`,
+  );
+
   const transport = new StdioServerTransport();
   await server.connect(transport);
+}
+
+function dispatchCli(argv: string[]): number | null {
+  const cmd = argv[2];
+  if (!cmd) return null;
+  if (cmd === "install-skill") return installSkill();
+  if (cmd === "uninstall-skill") return uninstallSkill();
+  if (cmd === "--version" || cmd === "-v" || cmd === "version") {
+    console.log(SERVER_VERSION);
+    return 0;
+  }
+  if (cmd === "--help" || cmd === "-h" || cmd === "help") {
+    console.log(`asc-mcp ${SERVER_VERSION}
+
+Usage:
+  asc-mcp                  Run as an MCP server on stdio (for Claude Desktop/Code).
+  asc-mcp install-skill    Install the asc-review-triage Claude Skill.
+  asc-mcp uninstall-skill  Remove the asc-review-triage Claude Skill.
+  asc-mcp version          Print version.
+  asc-mcp help             This help.`);
+    return 0;
+  }
+  return null;
+}
+
+const cliResult = dispatchCli(process.argv);
+if (cliResult !== null) {
+  process.exit(cliResult);
 }
 
 main().catch((err) => {
